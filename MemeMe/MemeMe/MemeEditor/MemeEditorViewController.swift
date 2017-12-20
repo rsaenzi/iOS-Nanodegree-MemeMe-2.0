@@ -63,6 +63,7 @@ class MemeEditorViewController: UIViewController {
     
     @IBAction func onTapCancel(_ sender: UIBarButtonItem) {
         load(image: nil)
+        dismiss(animated: true)
     }
     
     // MARK: Meme handling
@@ -162,7 +163,6 @@ class MemeEditorViewController: UIViewController {
         // Enable/Disable the top buttons and the textfields
         let hasImage = (image != nil)
         buttonShare.isEnabled = hasImage
-        buttonCancel.isEnabled = hasImage
         textfieldTop.isEnabled = hasImage
         textfieldBottom.isEnabled = hasImage
         
