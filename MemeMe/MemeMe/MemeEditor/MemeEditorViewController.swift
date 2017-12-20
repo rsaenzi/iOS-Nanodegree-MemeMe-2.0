@@ -121,11 +121,18 @@ class MemeEditorViewController: UIViewController {
     
     private func save(_ memeImage: UIImage) {
         
+        // Create the meme
         let meme = Meme(
             textTop: textfieldTop.text!,
             textBottom: textfieldBottom.text!,
             imageOriginal: imageViewMeme.image!,
             imageMeme: memeImage)
+        
+        // Add it to the memes array in the Application Delegate
+        guard let app = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        app.memes.append(meme)
     }
     
     // MARK: UI config
