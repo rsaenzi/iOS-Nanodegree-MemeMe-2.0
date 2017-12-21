@@ -27,7 +27,20 @@ class SentMemesTableViewController: UIViewController {
 extension SentMemesTableViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let app = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
         
+        let storyboard = UIStoryboard(name: "Main", bundle: .main)
+        guard let screen = storyboard.instantiateViewController(withIdentifier: "MemeDetailViewController") as? MemeDetailViewController else {
+            return
+        }
+        screen.meme = app.memes[indexPath.row].imageMeme
+        navigationController?.pushViewController(screen, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
     }
 }
 
