@@ -131,7 +131,7 @@ class MemeEditorViewController: UIViewController {
         
         // Add it to the memes array in the Application Delegate
         guard let app = UIApplication.shared.delegate as? AppDelegate else {
-            return
+            fatalError("App Delegate does not exist")
         }
         app.memes.append(meme)
     }

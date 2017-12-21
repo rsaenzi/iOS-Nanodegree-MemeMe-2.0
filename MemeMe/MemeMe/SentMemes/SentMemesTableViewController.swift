@@ -27,16 +27,7 @@ class SentMemesTableViewController: UIViewController {
 extension SentMemesTableViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let app = UIApplication.shared.delegate as? AppDelegate else {
-            return
-        }
-        
-        let storyboard = UIStoryboard(name: "Main", bundle: .main)
-        guard let screen = storyboard.instantiateViewController(withIdentifier: "MemeDetailViewController") as? MemeDetailViewController else {
-            return
-        }
-        screen.meme = app.memes[indexPath.row].imageMeme
-        navigationController?.pushViewController(screen, animated: true)
+        self.showMemeDetail(indexPath)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -48,14 +39,14 @@ extension SentMemesTableViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let app = UIApplication.shared.delegate as? AppDelegate else {
-            return 0
+            fatalError("App Delegate does not exist")
         }
         return app.memes.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let app = UIApplication.shared.delegate as? AppDelegate else {
-            fatalError()
+            fatalError("App Delegate does not exist")
         }
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "SentMemesTableCell", for: indexPath) as! SentMemesTableCell

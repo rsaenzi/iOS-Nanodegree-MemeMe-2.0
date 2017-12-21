@@ -29,16 +29,7 @@ class SentMemesCollectionViewController: UIViewController {
 extension SentMemesCollectionViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let app = UIApplication.shared.delegate as? AppDelegate else {
-            return
-        }
-        
-        let storyboard = UIStoryboard(name: "Main", bundle: .main)
-        guard let screen = storyboard.instantiateViewController(withIdentifier: "MemeDetailViewController") as? MemeDetailViewController else {
-            return
-        }
-        screen.meme = app.memes[indexPath.row].imageMeme
-        navigationController?.pushViewController(screen, animated: true)
+        self.showMemeDetail(indexPath)
     }
 }
 
@@ -46,14 +37,14 @@ extension SentMemesCollectionViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let app = UIApplication.shared.delegate as? AppDelegate else {
-            return 0
+            fatalError("App Delegate does not exist")
         }
         return app.memes.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let app = UIApplication.shared.delegate as? AppDelegate else {
-            fatalError()
+            fatalError("App Delegate does not exist")
         }
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SentMemesCollectionCell", for: indexPath) as! SentMemesCollectionCell
